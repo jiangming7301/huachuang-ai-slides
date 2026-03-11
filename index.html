@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华创智能 - AI智能视觉产品介绍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           =========================================== */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        :root {
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+            
+            /* Creative Voltage Colors */
+            --bg-primary: #0066ff;
+            --bg-dark: #1a1a2e;
+            --accent-neon: #d4ff00;
+            --text-light: #ffffff;
+            --text-dark: #1a1a2e;
+            
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1.5rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.3vw, 1rem);
+            }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.75rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ===========================================
+           CREATIVE VOLTAGE STYLE
+           =========================================== */
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* Slide 1: Title */
+        .slide-1 {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-dark) 100%);
+        }
+
+        .slide-1 .slide-content {
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-badge {
+            background: var(--accent-neon);
+            color: var(--text-dark);
+            padding: 0.5rem 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: var(--small-size);
+            margin-bottom: var(--content-gap);
+            transform: rotate(-2deg);
+        }
+
+        .main-title {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: var(--h2-size);
+            font-weight: 400;
+            margin-top: var(--element-gap);
+            opacity: 0.9;
+        }
+
+        /* Slide 2: Problem */
+        .slide-2 {
+            background: var(--bg-dark);
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent-neon);
+            font-size: var(--small-size);
+            margin-bottom: var(--element-gap);
+        }
+
+        .slide-title {
+            font-size: var(--title-size);
+            font-weight: 700;
+            margin: 0 0 var(--content-gap) 0;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--content-gap);
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .problem-card {
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid var(--accent-neon);
+            padding: var(--slide-padding);
+        }
+
+        .problem-card h3 {
+            font-size: var(--h3-size);
+            margin: 0 0 var(--element-gap) 0;
+            color: var(--accent-neon);
+        }
+
+        .problem-card p {
+            font-size: var(--body-size);
+            margin: 0;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Slide 3: Solution */
+        .slide-3 {
+            background: var(--bg-primary);
+        }
+
+        .solution-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .highlight-box {
+            background: var(--accent-neon);
+            color: var(--text-dark);
+            padding: 2rem;
+            margin: var(--content-gap) 0;
+            transform: rotate(1deg);
+        }
+
+        .highlight-box h2 {
+            font-size: var(--h2-size);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* Slide 4: Product Overview */
+        .slide-4 {
+            background: var(--bg-dark);
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--content-gap);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--content-gap);
+            padding: var(--slide-padding);
+            background: rgba(0, 102, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .feature-number {
+            font-family: 'Space Mono', monospace;
+            font-size: var(--h2-size);
+            font-weight: 700;
+            color: var(--accent-neon);
+            line-height: 1;
+        }
+
+        .feature-text h3 {
+            font-size: var(--h3-size);
+            margin: 0 0 var(--element-gap) 0;
+        }
+
+        .feature-text p {
+            font-size: var(--body-size);
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Slide 5: Technology */
+        .slide-5 {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0a0a1a 100%);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--content-gap);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .tech-card {
+            background: rgba(255,255,255,0.03);
+            padding: var(--slide-padding);
+            text-align: center;
+            border: 1px solid rgba(212, 255, 0, 0.2);
+        }
+
+        .tech-icon {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: var(--element-gap);
+        }
+
+        .tech-card h3 {
+            font-size: var(--h3-size);
+            margin: 0 0 var(--element-gap) 0;
+            color: var(--accent-neon);
+        }
+
+        .tech-card p {
+            font-size: var(--small-size);
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        /* Slide 6: Use Cases */
+        .slide-6 {
+            background: var(--bg-primary);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--content-gap);
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .case-card {
+            background: var(--bg-dark);
+            padding: var(--slide-padding);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-neon);
+        }
+
+        .case-card h3 {
+            font-size: var(--h3-size);
+            margin: 0 0 var(--element-gap) 0;
+        }
+
+        .case-card p {
+            font-size: var(--body-size);
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Slide 7: Benefits */
+        .slide-7 {
+            background: var(--bg-dark);
+        }
+
+        .benefits-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--content-gap);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .benefit-row {
+            display: flex;
+            align-items: center;
+            gap: var(--content-gap);
+            padding: var(--slide-padding);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        .benefit-stat {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--accent-neon);
+            min-width: 150px;
+        }
+
+        .benefit-text h3 {
+            font-size: var(--h3-size);
+            margin: 0 0 var(--element-gap) 0;
+        }
+
+        .benefit-text p {
+            font-size: var(--body-size);
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Slide 8: Architecture */
+        .slide-8 {
+            background: linear-gradient(135deg, #0a0a1a 0%, var(--bg-dark) 100%);
+        }
+
+        .architecture-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--content-gap);
+            flex-wrap: wrap;
+            max-width: 900px;
+        }
+
+        .arch-box {
+            background: rgba(0, 102, 255, 0.2);
+            border: 2px solid var(--bg-primary);
+            padding: var(--slide-padding);
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .arch-box h4 {
+            font-size: var(--body-size);
+            margin: 0;
+            color: var(--accent-neon);
+        }
+
+        .arch-arrow {
+            font-size: var(--h2-size);
+            color: var(--accent-neon);
+        }
+
+        /* Slide 9: Implementation */
+        .slide-9 {
+            background: var(--bg-primary);
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: var(--content-gap);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: var(--content-gap);
+            align-items: flex-start;
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-neon);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            background: var(--bg-dark);
+            padding: var(--slide-padding);
+            flex: 1;
+        }
+
+        .timeline-content h3 {
+            font-size: var(--h3-size);
+            margin: 0 0 var(--element-gap) 0;
+        }
+
+        .timeline-content p {
+            font-size: var(--body-size);
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Slide 10: CTA */
+        .slide-10 {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-primary) 100%);
+        }
+
+        .cta-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 800;
+            margin: 0 0 var(--content-gap) 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-neon);
+            color: var(--text-dark);
+            padding: 1rem 3rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: var(--body-size);
+            text-decoration: none;
+            margin-top: var(--content-gap);
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .contact-info {
+            margin-top: var(--content-gap);
+            font-size: var(--body-size);
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+        }
+
+        .visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        /* Navigation */
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            z-index: 1000;
+        }
+
+        /* Edit Mode Styles */
+        [contenteditable="true"] {
+            outline: 2px dashed var(--accent-neon);
+            outline-offset: 4px;
+            cursor: text;
+        }
+
+        [contenteditable="true"]:hover {
+            background: rgba(212, 255, 0, 0.1);
+        }
+
+        .edit-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            background: var(--accent-neon);
+            color: var(--text-dark);
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .edit-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Edit Controls -->
+    <div class="edit-controls">
+        <button class="edit-btn" onclick="toggleEdit()">✏️ 编辑</button>
+        <button class="edit-btn" onclick="exportHTML()">💾 导出</button>
+    </div>
+
+    <!-- Slide 1: Title -->
+    <section class="slide slide-1">
+        <div class="slide-content">
+            <div class="logo-badge reveal">华创智能科技</div>
+            <h1 class="main-title reveal reveal-delay-1">AI智能视觉检测</h1>
+            <p class="subtitle reveal reveal-delay-2">让机器看见质量 · 让智能守护生产</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Problem -->
+    <section class="slide slide-2">
+        <div class="slide-content">
+            <div class="section-label reveal">01 / 行业痛点</div>
+            <h2 class="slide-title reveal reveal-delay-1">传统质检面临的挑战</h2>
+            <div class="problem-grid">
+                <div class="problem-card reveal reveal-delay-2">
+                    <h3>🔍 人工检测效率低</h3>
+                    <p>传统人工目检速度慢，易疲劳，漏检率高达5-10%，无法满足高速生产线需求。</p>
+                </div>
+                <div class="problem-card reveal reveal-delay-3">
+                    <h3>💰 成本持续攀升</h3>
+                    <p>质检人员培训成本高，人员流动性大，用工成本逐年增加30%以上。</p>
+                </div>
+                <div class="problem-card reveal reveal-delay-4">
+                    <h3>📊 数据无法追溯</h3>
+                    <p>缺乏系统化的质量数据记录，无法进行分析优化，同样的缺陷反复出现。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Solution -->
+    <section class="slide slide-3">
+        <div class="slide-content">
+            <div class="solution-content">
+                <div class="section-label reveal">02 / 解决方案</div>
+                <h2 class="slide-title reveal reveal-delay-1">华创AI视觉检测系统</h2>
+                <div class="highlight-box reveal reveal-delay-2">
+                    <h2>基于深度学习的工业级视觉检测平台</h2>
+                </div>
+                <p class="reveal reveal-delay-3" style="font-size: var(--body-size); opacity: 0.9;">
+                    集成高分辨率成像、AI算法分析、自动化控制于一体，实现毫秒级缺陷检测，检测精度达99.5%以上。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Features -->
+    <section class="slide slide-4">
+        <div class="slide-content">
+            <div class="section-label reveal">03 / 核心功能</div>
+            <h2 class="slide-title reveal reveal-delay-1">产品核心能力</h2>
+            <div class="feature-list">
+                <div class="feature-item reveal reveal-delay-2">
+                    <div class="feature-number">01</div>
+                    <div class="feature-text">
+                        <h3>高精度缺陷识别</h3>
+                        <p>采用深度学习算法，支持划痕、凹陷、色差、异物等50+种缺陷类型自动识别，最小检测精度达0.01mm。</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal reveal-delay-3">
+                    <div class="feature-number">02</div>
+                    <div class="feature-text">
+                        <h3>实时在线检测</h3>
+                        <p>毫秒级响应速度，支持高速生产线在线检测，检测速度可达每分钟数千件，零延迟反馈。</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal reveal-delay-4">
+                    <div class="feature-number">03</div>
+                    <div class="feature-text">
+                        <h3>自主学习优化</h3>
+                        <p>系统持续学习新缺陷样本，自动优化检测模型，越用越精准，无需频繁重新训练。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Technology -->
+    <section class="slide slide-5">
+        <div class="slide-content">
+            <div class="section-label reveal">04 / 技术架构</div>
+            <h2 class="slide-title reveal reveal-delay-1">核心技术栈</h2>
+            <div class="tech-grid">
+                <div class="tech-card reveal reveal-delay-2">
+                    <div class="tech-icon">🧠</div>
+                    <h3>深度学习</h3>
+                    <p>CNN + Transformer混合架构<br>自研工业视觉大模型</p>
+                </div>
+                <div class="tech-card reveal reveal-delay-3">
+                    <div class="tech-icon">📷</div>
+                    <h3>高清成像</h3>
+                    <p>4K工业相机阵列<br>多光谱复合成像</p>
+                </div>
+                <div class="tech-card reveal reveal-delay-4">
+                    <div class="tech-icon">⚡</div>
+                    <h3>边缘计算</h3>
+                    <p>GPU加速推理引擎<br>毫秒级响应</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Use Cases -->
+    <section class="slide slide-6">
+        <div class="slide-content">
+            <div class="section-label reveal">05 / 应用场景</div>
+            <h2 class="slide-title reveal reveal-delay-1">行业解决方案</h2>
+            <div class="case-grid">
+                <div class="case-card reveal reveal-delay-2">
+                    <h3>🔩 汽车零部件</h3>
+                    <p>发动机缸体、变速箱齿轮、车身面板等精密零件表面缺陷检测</p>
+                </div>
+                <div class="case-card reveal reveal-delay-3">
+                    <h3>📱 电子制造</h3>
+                    <p>PCB板、芯片封装、手机屏幕等电子元器件外观质检</p>
+                </div>
+                <div class="case-card reveal reveal-delay-4">
+                    <h3>🏥 医疗器械</h3>
+                    <p>注射器、药瓶、手术器械等医疗用品质量检测</p>
+                </div>
+                <div class="case-card reveal reveal-delay-5">
+                    <h3>🥫 食品包装</h3>
+                    <p>瓶盖密封、标签贴附、包装完整性检测</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Benefits -->
+    <section class="slide slide-7">
+        <div class="slide-content">
+            <div class="section-label reveal">06 / 客户价值</div>
+            <h2 class="slide-title reveal reveal-delay-1">带来的效益提升</h2>
+            <div class="benefits-container">
+                <div class="benefit-row reveal reveal-delay-2">
+                    <div class="benefit-stat">99.5%</div>
+                    <div class="benefit-text">
+                        <h3>检测准确率</h3>
+                        <p>相比人工检测提升20%，漏检率降至0.5%以下</p>
+                    </div>
+                </div>
+                <div class="benefit-row reveal reveal-delay-3">
+                    <div class="benefit-stat">10x</div>
+                    <div class="benefit-text">
+                        <h3>检测效率提升</h3>
+                        <p>单线检测速度提升10倍，支持24小时不间断运行</p>
+                    </div>
+                </div>
+                <div class="benefit-row reveal reveal-delay-4">
+                    <div class="benefit-stat">60%</div>
+                    <div class="benefit-text">
+                        <h3>成本降低</h3>
+                        <p>减少质检人力需求，综合运营成本降低60%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Architecture -->
+    <section class="slide slide-8">
+        <div class="slide-content">
+            <div class="section-label reveal">07 / 系统架构</div>
+            <h2 class="slide-title reveal reveal-delay-1">部署架构</h2>
+            <div class="architecture-diagram">
+                <div class="arch-box reveal reveal-delay-2">
+                    <h4>工业相机<br>采集层</h4>
+                </div>
+                <div class="arch-arrow reveal reveal-delay-2">→</div>
+                <div class="arch-box reveal reveal-delay-3">
+                    <h4>边缘计算<br>推理层</h4>
+                </div>
+                <div class="arch-arrow reveal reveal-delay-3">→</div>
+                <div class="arch-box reveal reveal-delay-4">
+                    <h4>MES/ERP<br>对接层</h4>
+                </div>
+                <div class="arch-arrow reveal reveal-delay-4">→</div>
+                <div class="arch-box reveal reveal-delay-5">
+                    <h4>数据分析<br>平台</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Implementation -->
+    <section class="slide slide-9">
+        <div class="slide-content">
+            <div class="section-label reveal">08 / 实施流程</div>
+            <h2 class="slide-title reveal reveal-delay-1">快速部署，4周上线</h2>
+            <div class="timeline">
+                <div class="timeline-item reveal reveal-delay-2">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>需求调研 & 方案设计</h3>
+                        <p>现场调研，确定检测点位，制定技术方案（1周）</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal reveal-delay-3">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>系统部署 & 模型训练</h3>
+                        <p>硬件安装，采集样本数据，训练优化模型（2周）</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal reveal-delay-4">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>联调测试 & 正式上线</h3>
+                        <p>产线联调，人员培训，正式投产（1周）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: CTA -->
+    <section class="slide slide-10">
+        <div class="slide-content">
+            <div class="cta-content">
+                <div class="section-label reveal">09 / 联系我们</div>
+                <h2 class="cta-title reveal reveal-delay-1">开启智能质检新时代</h2>
+                <p class="reveal reveal-delay-2" style="font-size: var(--body-size); opacity: 0.9; margin-bottom: var(--content-gap);">
+                    免费获取产线检测方案，预约技术专家现场演示
+                </p>
+                <a href="#" class="cta-button reveal reveal-delay-3">立即咨询</a>
+                <div class="contact-info reveal reveal-delay-4">
+                    <p>📧 contact@huachuang-ai.com</p>
+                    <p>📱 400-XXX-XXXX</p>
+                    <p>🌐 www.huachuang-ai.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="nav-hint">滚动或按 ↓ 键浏览</div>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide').forEach(slide => {
+            observer.observe(slide);
+        });
+
+        // Edit mode toggle
+        let isEditMode = false;
+        function toggleEdit() {
+            isEditMode = !isEditMode;
+            const editableElements = document.querySelectorAll('h1, h2, h3, h4, p');
+            editableElements.forEach(el => {
+                el.contentEditable = isEditMode;
+            });
+            alert(isEditMode ? '✏️ 编辑模式已开启，点击文字即可编辑' : '👁️ 预览模式');
+        }
+
+        // Export HTML
+        function exportHTML() {
+            const html = document.documentElement.outerHTML;
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '华创智能AI视觉产品介绍.html';
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('💾 已导出！');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp') {
+                window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
